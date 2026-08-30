@@ -1,0 +1,91 @@
+[
+  {
+    "id": 1,
+    "name": "Scenario 1: Dense Fog Collision",
+    "description": "Demonstrates vehicle detection via radar and thermal sensors during sudden dense fog, avoiding a collision when visibility drops to 5m.",
+    "steps": [
+      {"time": 0, "action": "set_weather", "params": {"rain": 0, "wind": 10, "fog": 20, "dust": 5, "humidity": 60, "clouds": 40}},
+      {"time": 4, "action": "set_weather", "params": {"rain": 0, "wind": 10, "fog": 90, "dust": 5, "humidity": 95, "clouds": 90}},
+      {"time": 8, "action": "trigger_conflict", "params": {"v1": "V-01", "v2": "V-02", "road": "H-04"}},
+      {"time": 15, "action": "complete"}
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Scenario 2: Heavy Rain & Potholes",
+    "description": "Shows road surface degradation under severe rain. Triggers road scanning, detects potholes and water accumulation, and adjusts recommended speed.",
+    "steps": [
+      {"time": 0, "action": "set_weather", "params": {"rain": 10, "wind": 15, "fog": 10, "dust": 5, "humidity": 50, "clouds": 30}},
+      {"time": 3, "action": "set_weather", "params": {"rain": 85, "wind": 40, "fog": 40, "dust": 10, "humidity": 90, "clouds": 90}},
+      {"time": 6, "action": "degrade_road", "params": {"road_id": "H-07", "potholes": 8, "water": 0.85}},
+      {"time": 10, "action": "road_scan", "params": {"road_id": "H-07"}},
+      {"time": 15, "action": "complete"}
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Scenario 3: Worker in Vehicle Path",
+    "description": "Simulates a pedestrian supervisor entering a vehicle path in heavy wind/fog. Uses Thermal and Radar fusion to detect and safely slow the vehicle.",
+    "steps": [
+      {"time": 0, "action": "set_weather", "params": {"rain": 10, "wind": 30, "fog": 50, "dust": 10, "humidity": 70, "clouds": 60}},
+      {"time": 4, "action": "move_worker", "params": {"worker_id": "W-04", "x": 305, "y": 380, "target_road": "H-02"}},
+      {"time": 12, "action": "complete"}
+    ]
+  },
+  {
+    "id": 4,
+    "name": "Scenario 4: Heavy Wind & Dust",
+    "description": "Simulates high-velocity winds carrying iron ore dust, causing RGB camera opacity to drop, while Radar confirms safety.",
+    "steps": [
+      {"time": 0, "action": "set_weather", "params": {"rain": 0, "wind": 10, "fog": 5, "dust": 10, "humidity": 30, "clouds": 10}},
+      {"time": 3, "action": "set_weather", "params": {"rain": 0, "wind": 85, "fog": 10, "dust": 80, "humidity": 30, "clouds": 50}},
+      {"time": 10, "action": "complete"}
+    ]
+  },
+  {
+    "id": 5,
+    "name": "Scenario 5: Multiple Vehicle Conflict",
+    "description": "A complex intersection scenario where multiple dumpers meet on a ramp in low visibility. Reroutes and schedules speeds dynamically.",
+    "steps": [
+      {"time": 0, "action": "set_weather", "params": {"rain": 40, "wind": 20, "fog": 60, "dust": 15, "humidity": 80, "clouds": 70}},
+      {"time": 5, "action": "trigger_multi_conflict", "params": {"vehicles": ["V-01", "V-02", "V-03"]}},
+      {"time": 15, "action": "complete"}
+    ]
+  },
+  {
+    "id": 6,
+    "name": "Scenario 6: Sensor Failure & Adaptation",
+    "description": "Simulates physical damage or mud occlusion of the thermal camera on V-01. The fusion system increases RGB/radar weight and notifies the control room.",
+    "steps": [
+      {"time": 0, "action": "set_weather", "params": {"rain": 30, "wind": 10, "fog": 40, "dust": 20, "humidity": 80, "clouds": 60}},
+      {"time": 4, "action": "fail_sensor", "params": {"vehicle_id": "V-01", "sensor": "thermal", "health": 0.1}},
+      {"time": 10, "action": "complete"}
+    ]
+  },
+  {
+    "id": 7,
+    "name": "Scenario 7: Bailadila Extreme Monsoon (Main Demo)",
+    "description": "The complete SIH demo. Weather deteriorates to extreme monsoon, visibility falls to 3m, road degrades, vehicles converge, collision is avoided, worker is detected, and road health monitored.",
+    "steps": [
+      {"time": 0, "action": "set_weather", "params": {"rain": 0, "wind": 5, "fog": 0, "dust": 10, "humidity": 45, "clouds": 5}},
+      {"time": 5, "action": "set_weather", "params": {"rain": 40, "wind": 30, "fog": 30, "dust": 15, "humidity": 75, "clouds": 60}},
+      {"time": 10, "action": "set_weather", "params": {"rain": 95, "wind": 85, "fog": 95, "dust": 50, "humidity": 98, "clouds": 100}},
+      {"time": 13, "action": "trigger_conflict", "params": {"v1": "V-01", "v2": "V-02", "road": "H-02"}},
+      {"time": 19, "action": "move_worker", "params": {"worker_id": "W-04", "x": 560, "y": 305, "target_road": "H-04"}},
+      {"time": 25, "action": "degrade_road", "params": {"road_id": "H-07", "potholes": 9, "water": 0.90}},
+      {"time": 28, "action": "road_scan", "params": {"road_id": "H-07"}},
+      {"time": 35, "action": "complete"}
+    ]
+  },
+  {
+    "id": 8,
+    "name": "Scenario 8: Low Visibility + Damaged Road",
+    "description": "Combines dense fog and degraded road to force V-03 to take an alternate safe route (East Rim Bypass H-13) instead of H-07.",
+    "steps": [
+      {"time": 0, "action": "set_weather", "params": {"rain": 5, "wind": 10, "fog": 80, "dust": 10, "humidity": 90, "clouds": 80}},
+      {"time": 4, "action": "degrade_road", "params": {"road_id": "H-07", "potholes": 12, "water": 0.95}},
+      {"time": 8, "action": "reroute_vehicle", "params": {"vehicle_id": "V-03"}},
+      {"time": 15, "action": "complete"}
+    ]
+  }
+]

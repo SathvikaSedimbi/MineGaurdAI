@@ -1,0 +1,52 @@
+{
+  "clear": {
+    "name": "Clear & Sunny",
+    "rain": 0.0,
+    "wind": 5.0,
+    "fog": 0.0,
+    "humidity": 45.0,
+    "dust": 10.0,
+    "clouds": 5.0,
+    "visibility": 120.0
+  },
+  "light_fog": {
+    "name": "Morning Fog",
+    "rain": 0.0,
+    "wind": 8.0,
+    "fog": 40.0,
+    "humidity": 75.0,
+    "dust": 5.0,
+    "clouds": 60.0,
+    "visibility": 30.0
+  },
+  "heavy_rain": {
+    "name": "Heavy Downpour",
+    "rain": 80.0,
+    "wind": 45.0,
+    "fog": 30.0,
+    "humidity": 90.0,
+    "dust": 10.0,
+    "clouds": 95.0,
+    "visibility": 15.0
+  },
+  "wind_dust": {
+    "name": "Strong Wind & Dust Storm",
+    "rain": 5.0,
+    "wind": 75.0,
+    "fog": 15.0,
+    "humidity": 30.0,
+    "dust": 80.0,
+    "clouds": 50.0,
+    "visibility": 10.0
+  },
+  "extreme_monsoon": {
+    "name": "Bailadila Extreme Monsoon",
+    "rain": 95.0,
+    "wind": 90.0,
+    "fog": 95.0,
+    "humidity": 98.0,
+    "dust": 50.0,
+    "clouds": 100.0,
+    "visibility": 3.5
+  }
+}

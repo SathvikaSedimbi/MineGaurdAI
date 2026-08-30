@@ -1,0 +1,32 @@
+{
+  "name": "Bailadila Iron Ore Mine - Deposit 14 Mockup",
+  "dimensions": {
+    "width": 800,
+    "height": 600
+  },
+  "nodes": [
+    {"id": "N_PIT_LOAD", "name": "Pit Excavation Zone", "x": 400, "y": 450, "elevation": 20, "type": "loading"},
+    {"id": "N_BENCH4_SW", "name": "Bench 4 (SW Turn)", "x": 280, "y": 380, "elevation": 40, "type": "bench"},
+    {"id": "N_BENCH4_NE", "name": "Bench 4 (NE Turn)", "x": 520, "y": 380, "elevation": 40, "type": "bench"},
+    {"id": "N_BENCH3_W", "name": "Bench 3 (West)", "x": 220, "y": 300, "elevation": 60, "type": "bench"},
+    {"id": "N_BENCH3_E", "name": "Bench 3 (East)", "x": 580, "y": 300, "elevation": 60, "type": "bench"},
+    {"id": "N_BENCH2_NW", "name": "Bench 2 (NW)", "x": 160, "y": 220, "elevation": 80, "type": "bench"},
+    {"id": "N_BENCH2_SE", "name": "Bench 2 (SE)", "x": 640, "y": 220, "elevation": 80, "type": "bench"},
+    {"id": "N_BENCH1_W", "name": "Bench 1 (West)", "x": 110, "y": 150, "elevation": 100, "type": "bench"},
+    {"id": "N_BENCH1_E", "name": "Bench 1 (East)", "x": 690, "y": 150, "elevation": 100, "type": "bench"},
+    {"id": "N_DUMP_YARD", "name": "Main Dumping Yard", "x": 400, "y": 80, "elevation": 120, "type": "dumping"},
+    {"id": "N_WORKSHOP", "name": "Maintenance Workshop", "x": 180, "y": 80, "elevation": 120, "type": "workshop"},
+    {"id": "N_PARKING", "name": "HEMM Parking Area", "x": 620, "y": 80, "elevation": 120, "type": "parking"}
+  ],
+  "benches": [
+    {"id": "B_PIT", "name": "Pit Floor", "radius_x": 100, "radius_y": 60, "center_x": 400, "center_y": 450, "elevation": 20},
+    {"id": "B_4", "name": "Bench 4 (40m)", "radius_x": 180, "radius_y": 100, "center_x": 400, "center_y": 410, "elevation": 40},
+    {"id": "B_3", "name": "Bench 3 (60m)", "radius_x": 260, "radius_y": 140, "center_x": 400, "center_y": 360, "elevation": 60},
+    {"id": "B_2", "name": "Bench 2 (80m)", "radius_x": 340, "radius_y": 180, "center_x": 400, "center_y": 310, "elevation": 80},
+    {"id": "B_1", "name": "Bench 1 (100m)", "radius_x": 420, "radius_y": 220, "center_x": 400, "center_y": 260, "elevation": 100}
+  ],
+  "restricted_zones": [
+    {"id": "RZ_01", "name": "Active Blasting Zone A", "x": 400, "y": 300, "radius": 45, "danger_level": "CRITICAL"},
+    {"id": "RZ_02", "name": "Landslide Caution Area B", "x": 680, "y": 280, "radius": 35, "danger_level": "HIGH"}
+  ]
+}

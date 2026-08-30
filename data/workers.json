@@ -1,0 +1,98 @@
+[
+  {
+    "id": "W-01",
+    "name": "Arjun Kumar",
+    "designation": "Geotechnical Inspector",
+    "position": {"x": 180, "y": 240},
+    "current_node": "N_BENCH2_NW",
+    "status": "WORKING",
+    "speed_mps": 0.5,
+    "path": [{"x": 180, "y": 240}, {"x": 200, "y": 230}, {"x": 160, "y": 250}],
+    "path_index": 0,
+    "hazard_radius_m": 10
+  },
+  {
+    "id": "W-02",
+    "name": "Rajesh Sharma",
+    "designation": "Excavator Operator",
+    "position": {"x": 380, "y": 460},
+    "current_node": "N_PIT_LOAD",
+    "status": "WORKING",
+    "speed_mps": 0.0,
+    "path": [{"x": 380, "y": 460}],
+    "path_index": 0,
+    "hazard_radius_m": 8
+  },
+  {
+    "id": "W-03",
+    "name": "Amit Patel",
+    "designation": "Haulage Spotter",
+    "position": {"x": 300, "y": 390},
+    "current_node": "N_BENCH4_SW",
+    "status": "WORKING",
+    "speed_mps": 0.2,
+    "path": [{"x": 300, "y": 390}, {"x": 310, "y": 385}, {"x": 290, "y": 395}],
+    "path_index": 0,
+    "hazard_radius_m": 8
+  },
+  {
+    "id": "W-04",
+    "name": "Vijay Singh",
+    "designation": "Maintenance Mechanic",
+    "position": {"x": 140, "y": 160},
+    "current_node": "N_BENCH1_W",
+    "status": "WALKING",
+    "speed_mps": 1.2,
+    "path": [{"x": 140, "y": 160}, {"x": 250, "y": 150}, {"x": 380, "y": 150}, {"x": 140, "y": 160}],
+    "path_index": 0,
+    "hazard_radius_m": 12
+  },
+  {
+    "id": "W-05",
+    "name": "Sunil Rao",
+    "designation": "Dump Supervisor",
+    "position": {"x": 420, "y": 90},
+    "current_node": "N_DUMP_YARD",
+    "status": "WORKING",
+    "speed_mps": 0.1,
+    "path": [{"x": 420, "y": 90}, {"x": 430, "y": 95}, {"x": 410, "y": 85}],
+    "path_index": 0,
+    "hazard_radius_m": 8
+  },
+  {
+    "id": "W-06",
+    "name": "Pradeep Mishra",
+    "designation": "Blasting Officer",
+    "position": {"x": 390, "y": 310},
+    "current_node": "N_BENCH3_W",
+    "status": "STATIONARY",
+    "speed_mps": 0.0,
+    "path": [{"x": 390, "y": 310}],
+    "path_index": 0,
+    "hazard_radius_m": 15
+  },
+  {
+    "id": "W-07",
+    "name": "Vikram Sen",
+    "designation": "Dewatering Operator",
+    "position": {"x": 570, "y": 310},
+    "current_node": "N_BENCH3_E",
+    "status": "WORKING",
+    "speed_mps": 0.4,
+    "path": [{"x": 570, "y": 310}, {"x": 560, "y": 305}, {"x": 580, "y": 315}],
+    "path_index": 0,
+    "hazard_radius_m": 10
+  },
+  {
+    "id": "W-08",
+    "name": "Sanjay Dutt",
+    "designation": "Surveypack Operator",
+    "position": {"x": 670, "y": 160},
+    "current_node": "N_BENCH1_E",
+    "status": "WALKING",
+    "speed_mps": 0.8,
+    "path": [{"x": 670, "y": 160}, {"x": 600, "y": 155}, {"x": 690, "y": 165}],
+    "path_index": 0,
+    "hazard_radius_m": 10
+  }
+]

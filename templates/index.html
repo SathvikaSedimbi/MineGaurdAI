@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MineGuard AI - Central Control Room</title>
+    <!-- Include Google Font for Industrial Theme -->
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <!-- Chart.js CDN for Analytics Plots -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body class="dark-theme">
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-brand">
+                <div class="logo-icon"></div>
+                <div class="brand-text">
+                    <h1>MINEGUARD AI</h1>
+                    <span>CONTROL SYSTEM</span>
+                </div>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <ul>
+                    <li class="nav-item active" data-view="view-dashboard">
+                        <svg class="nav-icon" viewBox="0 0 24 24"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg>
+                        <span>Dashboard</span>
+                    </li>
+                    <li class="nav-item" data-view="view-control-room">
+                        <svg class="nav-icon" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10H7v-2h10v2z"/></svg>
+                        <span>Control Room</span>
+                    </li>
+                    <li class="nav-item" data-view="view-mine-map">
+                        <svg class="nav-icon" viewBox="0 0 24 24"><path d="M20.5 3l-.16.03L15 5.1L9 3L3.36 4.9c-.21.07-.36.25-.36.48V20.5c0 .28.22.5.5.5l.16-.03L9 18.9l6 2.1l5.64-1.9c.21-.07.36-.25.36-.48V3.5c0-.28-.22-.5-.5-.5zM15 19l-6-2.11V5l6 2.11V19z"/></svg>
+                        <span>Live Mine Map</span>
+                    </li>
+                    <li class="nav-item" data-view="view-twin">
+                        <svg class="nav-icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H7c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.04-.42 1.99-1.07 2.75z"/></svg>
+                        <span>Digital Twin</span>
+                    </li>
+                    <li class="nav-item" data-view="view-sensor-lab">
+                        <svg class="nav-icon" viewBox="0 0 24 24"><path d="M17 12c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zm1.79 6.25L17 16.5V14h1v2.09l1.41 1.41-.62.75zM16 11V3h-8v8H4v10h6v-2H6v-6h4V9H8V5h4v4h-2v6h2v6h2v-8h2zm-4 10h-2v2h2v-2z"/></svg>
+                        <span>Sensor Lab</span>
+                    </li>
+                    <li class="nav-item" data-view="view-weather">
+                        <svg class="nav-icon" viewBox="0 0 24 24"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM19 18H6c-2.21 0-4-1.79-4-4 0-2.05 1.53-3.76 3.56-3.97l1.07-.11.5-.95C8.08 7.14 9.94 6 12 6c2.62 0 4.88 1.86 5.39 4.43l.3 1.5 1.53.11c1.56.1 2.78 1.41 2.78 2.96 0 1.65-1.35 3-3 3z"/></svg>
+                        <span>Weather Engine</span>
+                    </li>
+                    <li class="nav-item" data-view="view-road-health">
+                        <svg class="nav-icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+                        <span>Road Health</span>
+                    </li>
+                    <li class="nav-item" data-view="view-collision">
+                        <svg class="nav-icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+                        <span>Collision Prediction</span>
+                    </li>
+                    <li class="nav-item" data-view="view-scenarios">
+                        <svg class="nav-icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/></svg>
+                        <span>Scenario Simulator</span>
+                    </li>
+                    <li class="nav-item" data-view="view-about">
+                        <svg class="nav-icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+                        <span>About & USPs</span>
+                    </li>
+                </ul>
+            </nav>
+
+            <div class="sidebar-panels">
+                <div class="sidebar-panel">
+                    <h3>🚛 FLEET MANAGEMENT</h3>
+                    <div class="sidebar-vehicle-list" id="sidebar-active-vehicles">
+                        <div class="empty-state">No vehicles registered.</div>
+                    </div>
+                    <button class="panel-btn" id="btn-open-add-vehicle-modal">+ ADD VEHICLE</button>
+                </div>
+                
+                <div class="sidebar-panel">
+                    <h3>🚧 INCIDENTS & BLOCKAGES</h3>
+                    <div class="sidebar-incident-status" id="sidebar-incident-status">
+                        <div class="empty-state">No active incidents.</div>
+                    </div>
+                    <button class="panel-btn danger-btn" id="btn-open-report-incident-modal">+ REPORT INCIDENT</button>
+                </div>
+            </div>
+            
+            <div class="sidebar-footer">
+                <span class="pulse-icon"></span>
+                <span>System status: CONNECTED</span>
+            </div>
+        </aside>
+
+        <!-- Main Workspace Area -->
+        <main class="workspace">
+            <header class="top-bar">
+                <div class="header-left">
+                    <h2 id="view-title">Dashboard Overview</h2>
+                    <p class="subtitle">Bailadila Mechanized Iron Ore Mine Command System</p>
+                </div>
+                
+                <div class="simulation-controls card">
+                    <button id="btn-sim-reset" class="control-btn" title="Reset State">Reset</button>
+                    <button id="btn-sim-toggle" class="control-btn play" title="Pause/Resume Simulation">Pause</button>
+                    <div class="sim-time-badge">
+                        <span>SIM TIME:</span>
+                        <strong id="lbl-sim-time">0.0s</strong>
+                    </div>
+                </div>
+            </header>
+
+            <div class="view-content-wrapper">
+                <!-- VIEW 1: DASHBOARD -->
+                <section id="view-dashboard" class="content-view active">
+                    <div class="grid-layout cols-4">
+                        <div class="metric-card card border-glow-green" id="dash-visibility-card">
+                            <span class="metric-label">VISIBILITY RANGE</span>
+                            <div class="metric-value-container">
+                                <span class="metric-value" id="dash-visibility-val">120m</span>
+                                <span class="badge badge-success" id="dash-visibility-cat">CLEAR</span>
+                            </div>
+                        </div>
+                        <div class="metric-card card border-glow-red" id="dash-alerts-card">
+                            <span class="metric-label">ACTIVE WARNINGS</span>
+                            <div class="metric-value-container">
+                                <span class="metric-value" id="dash-alerts-val">0</span>
+                                <span class="badge badge-normal" id="dash-alerts-status">NOMINAL</span>
+                            </div>
+                        </div>
+                        <div class="metric-card card" id="dash-efficiency-card">
+                            <span class="metric-label">FLEET EVACUATION RATE</span>
+                            <div class="metric-value-container">
+                                <span class="metric-value" id="dash-eff-val">92%</span>
+                                <span class="badge badge-primary" id="dash-eff-comp">M-GUARD ENABLED</span>
+                            </div>
+                        </div>
+                        <div class="metric-card card" id="dash-cycle-card">
+                            <span class="metric-label">AVG HAUL CYCLE TIME</span>
+                            <div class="metric-value-container">
+                                <span class="metric-value" id="dash-cycle-val">25.0m</span>
+                                <span class="sub-label" id="dash-cycle-diff">0.0m delay</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid-layout cols-3">
+                        <div class="card col-span-2">
+                            <h3>Active System Alert Log</h3>
+                            <div class="table-container list-view" id="dashboard-alert-list">
+                                <div class="empty-state">No active warnings. System running normally.</div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <h3>Current Weather Matrix</h3>
+                            <div class="weather-dash-grid">
+                                <div class="weather-item"><span class="lbl">Rain:</span><strong id="dash-w-rain">0%</strong></div>
+                                <div class="weather-item"><span class="lbl">Fog Density:</span><strong id="dash-w-fog">0%</strong></div>
+                                <div class="weather-item"><span class="lbl">Wind Speed:</span><strong id="dash-w-wind">5 km/h</strong></div>
+                                <div class="weather-item"><span class="lbl">Dust Level:</span><strong id="dash-w-dust">10%</strong></div>
+                                <div class="weather-item"><span class="lbl">Humidity:</span><strong id="dash-w-hum">45%</strong></div>
+                                <div class="weather-item"><span class="lbl">Cloud Cover:</span><strong id="dash-w-clouds">5%</strong></div>
+                            </div>
+                    <div class="grid-layout cols-3 margin-top-md">
+                        <div class="card col-span-2 border-glow-red">
+                            <h3>🚧 Calamity Alerts & Road Blockage Panel</h3>
+                            <div class="incident-dashboard-wrapper" id="dashboard-incident-panel">
+                                <div class="empty-state">No active blockages or road calamities reported.</div>
+                            </div>
+                        </div>
+                        <div class="card flex-column">
+                            <h3>📜 Live Mine Safety Timeline</h3>
+                            <div class="timeline-logs" id="dashboard-timeline-list" style="max-height: 250px; overflow-y: auto; font-family: monospace; font-size: 11px;">
+                                <div class="empty-state">Loading timeline...</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- VIEW 2: MINE CONTROL ROOM -->
+                <section id="view-control-room" class="content-view">
+                    <div class="grid-layout cols-3 gap-lg">
+                        <div class="col-span-2 card map-card-container">
+                            <div class="panel-header">
+                                <h3>Command Live Mine Map Overlay</h3>
+                                <div class="map-legend">
+                                    <span class="legend-item"><span class="dot vehicle"></span> Dumper</span>
+                                    <span class="legend-item"><span class="dot worker"></span> Worker</span>
+                                    <span class="legend-item"><span class="dot restricted"></span> Blasting Zone</span>
+                                </div>
+                            </div>
+                            <div class="mine-map-wrapper" style="position: relative;">
+                                <canvas id="canvas-control-room-map" width="800" height="600"></canvas>
+                                <div class="map-zoom-controls">
+                                    <button class="zoom-btn" id="btn-map-zoom-in">+</button>
+                                    <button class="zoom-btn" id="btn-map-zoom-out">-</button>
+                                </div>
+                                <!-- Floating Vehicle Details Card Overlay -->
+                                <div class="floating-vehicle-details card hidden" id="map-vehicle-details" style="position: absolute; top: 20px; right: 20px; width: 250px; background: rgba(18, 26, 39, 0.95); border: 1px solid #1e2d3d; border-radius: 4px; padding: 12px; z-index: 1000; box-shadow: 0 4px 20px rgba(0,0,0,0.5);">
+                                    <div class="card-header" style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #1e2d3d; padding-bottom: 6px; margin-bottom: 8px;">
+                                        <h4 id="det-veh-id" style="margin: 0; font-family: 'Share Tech Mono', monospace; font-size: 14px; color: #3b82f6;">AMB-01</h4>
+                                        <span class="close-card" id="close-veh-details-btn" style="cursor: pointer; font-size: 16px; color: #9ca3af;">&times;</span>
+                                    </div>
+                                    <div class="details-grid" style="display: grid; grid-template-columns: 1fr; gap: 4px; font-size: 11px;">
+                                        <div><span style="color: #9ca3af;">Type:</span> <strong id="det-veh-type">Ambulance</strong></div>
+                                        <div><span style="color: #9ca3af;">Priority:</span> <strong id="det-veh-priority">EMERGENCY</strong></div>
+                                        <div><span style="color: #9ca3af;">Speed:</span> <strong id="det-veh-speed">35 km/h</strong></div>
+                                        <div><span style="color: #9ca3af;">Location:</span> <strong id="det-veh-road">Haul Road H-04</strong></div>
+                                        <div><span style="color: #9ca3af;">Destination:</span> <strong id="det-veh-dest">Medical Station</strong></div>
+                                        <div><span style="color: #9ca3af;">Status:</span> <strong id="det-veh-status">ACTIVE</strong></div>
+                                        <div><span style="color: #9ca3af;">Connectivity:</span> <strong id="det-veh-conn">ONLINE</strong></div>
+                                    </div>
+                                    <div class="nearby-header" style="margin-top: 10px; padding-top: 6px; border-top: 1px solid #1e2d3d; font-size: 10px; font-weight: bold; color: #f59e0b; font-family: 'Share Tech Mono', monospace;">V2V NEARBY VEHICLES</div>
+                                    <div class="nearby-list" id="det-veh-nearby" style="max-height: 80px; overflow-y: auto; font-size: 10px; margin-top: 4px;">
+                                        <!-- Filled by JS -->
+                                    </div>
+                                    <div class="details-actions" style="margin-top: 8px;">
+                                        <button class="action-btn w-full" id="btn-toggle-veh-conn" style="padding: 4px 8px; font-size: 10px;">Toggle Link Status</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card flex-column">
+                            <h3>LIVE FLEET</h3>
+                            <div class="table-container small-table" style="max-height: 250px; overflow-y: auto;">
+                                <table class="fleet-table" style="width: 100%; border-collapse: collapse; font-size: 11px;">
+                                    <thead>
+                                        <tr style="border-bottom: 1px solid #1e2d3d; text-align: left;">
+                                            <th style="padding: 6px 4px;">ID</th>
+                                            <th style="padding: 6px 4px;">TYPE</th>
+                                            <th style="padding: 6px 4px;">SPEED</th>
+                                            <th style="padding: 6px 4px;">STATUS</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="control-fleet-table-body">
+                                        <!-- Filled by JS -->
+                                    </tbody>
+                                </table>
+                            </div>
+                            <h3 class="margin-top-md">Environmental Threat Level</h3>
+                            <div class="weather-status-meter card">
+                                <div class="meter-bar-bg"><div class="meter-bar-fill" id="cr-threat-fill" style="width: 5%"></div></div>
+                                <span class="meter-lbl">Risk: <strong id="cr-threat-lbl">LOW</strong></span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- VIEW 3: LIVE MINE MAP -->
+                <section id="view-mine-map" class="content-view">
+                    <div class="card map-card-container full-height">
+                        <div class="panel-header">
+                            <h3>Interactive Benches & Haul Road Mapping</h3>
+                            <div class="map-actions">
+                                <button class="action-btn active" id="btn-toggle-rain-effect">Toggle Rain Animation</button>
+                                <button class="action-btn active" id="btn-toggle-scan-beam">Toggle Scanner View</button>
+                            </div>
+                        </div>
+                        <div class="mine-map-wrapper full-map">
+                            <canvas id="canvas-full-map" width="800" height="600"></canvas>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- VIEW 5: VEHICLE DIGITAL TWIN -->
+                <section id="view-twin" class="content-view">
+                    <div class="card select-twin-header">
+                        <span>Select Vehicle to Inspect:</span>
+                        <select id="select-twin-vehicle" class="dropdown-select">
+                            <option value="V-01">V-01 — Heavy Dumper</option>
+                            <option value="V-02">V-02 — Heavy Dumper</option>
+                            <option value="V-03">V-03 — Heavy Dumper</option>
+                            <option value="V-04">V-04 — Service Vehicle</option>
+                            <option value="V-05">V-05 — Water Tanker</option>
+                        </select>
+                    </div>
+
+                    <div class="grid-layout cols-3">
+                        <div class="card col-span-2">
+                            <h3 id="lbl-twin-name">Vehicle V-01 Telemetry Twin</h3>
+                            <div class="twin-grid-stats">
+                                <div class="stat-box"><span class="lbl">TYPE</span><strong id="twin-type">HEAVY DUMPER</strong></div>
+                                <div class="stat-box"><span class="lbl">SPEED</span><strong id="twin-speed">38.0 km/h</strong></div>
+                                <div class="stat-box"><span class="lbl">RECOMMENDED SPEED</span><strong id="twin-rec-speed">40.0 km/h</strong></div>
+                                <div class="stat-box"><span class="lbl">HEADING</span><strong id="twin-heading">45°</strong></div>
+                                <div class="stat-box"><span class="lbl">ROAD SEGMENT</span><strong id="twin-road">H-01 (Pit Access)</strong></div>
+                                <div class="stat-box"><span class="lbl">SAFETY STATE</span><strong class="text-glow-green" id="twin-safety">NORMAL</strong></div>
+                            </div>
+
+                            <h3 class="margin-top-md">Dynamic Sensor Weight & Health Distribution</h3>
+                            <div class="sensor-bars-container">
+                                <div class="sensor-bar-item">
+                                    <span class="lbl">RGB Camera Confidence: <strong id="twin-conf-rgb">100%</strong></span>
+                                    <div class="meter-bar-bg"><div class="meter-bar-fill bg-success" id="twin-bar-rgb" style="width: 100%"></div></div>
+                                </div>
+                                <div class="sensor-bar-item">
+                                    <span class="lbl">Thermal Camera Confidence: <strong id="twin-conf-thermal">100%</strong></span>
+                                    <div class="meter-bar-bg"><div class="meter-bar-fill bg-warning" id="twin-bar-thermal" style="width: 100%"></div></div>
+                                </div>
+                                <div class="sensor-bar-item">
+                                    <span class="lbl">Radar Sensor Confidence: <strong id="twin-conf-radar">100%</strong></span>
+                                    <div class="meter-bar-bg"><div class="meter-bar-fill bg-primary" id="twin-bar-radar" style="width: 100%"></div></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card flex-column">
+                            <h3>Fused Object Detection List</h3>
+                            <div class="object-list" id="twin-object-list">
+                                <!-- Filled by JS -->
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- VIEW 6: SENSOR SIMULATION LAB -->
+                <section id="view-sensor-lab" class="content-view">
+                    <div class="sensor-lab-controls card">
+                        <span>Active Vehicle Feed:</span>
+                        <select id="select-sensor-vehicle" class="dropdown-select">
+                            <option value="V-01">V-01 (Heavy Dumper 1)</option>
+                            <option value="V-02">V-02 (Heavy Dumper 2)</option>
+                            <option value="V-03">V-03 (Heavy Dumper 3)</option>
+                        </select>
+                        
+                        <div class="sensor-failures-toggles">
+                            <label class="toggle-container">
+                                <input type="checkbox" id="chk-fail-rgb">
+                                <span class="checkmark"></span> Mud Block RGB Camera
+                            </label>
+                            <label class="toggle-container">
+                                <input type="checkbox" id="chk-fail-thermal">
+                                <span class="checkmark"></span> Mud Block Thermal
+                            </label>
+                            <label class="toggle-container">
+                                <input type="checkbox" id="chk-fail-radar">
+                                <span class="checkmark"></span> Block Radar Antenna
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="grid-layout cols-3 gap-md sensor-feeds-grid">
+                        <div class="card flex-column">
+                            <h3>📷 RGB Front Camera Feed</h3>
+                            <div class="sensor-feed-canvas-box">
+                                <canvas id="canvas-sensor-rgb" width="300" height="225"></canvas>
+                            </div>
+                            <span class="feed-overlay-lbl">RGB CONFIDENCE: <strong id="lbl-feed-rgb">95%</strong></span>
+                        </div>
+                        
+                        <div class="card flex-column">
+                            <h3>🌡️ Thermal Heat Scanner Feed</h3>
+                            <div class="sensor-feed-canvas-box">
+                                <canvas id="canvas-sensor-thermal" width="300" height="225"></canvas>
+                            </div>
+                            <span class="feed-overlay-lbl">THERMAL CONFIDENCE: <strong id="lbl-feed-thermal">92%</strong></span>
+                        </div>
+                        
+                        <div class="card flex-column">
+                            <h3>📡 FMCW Radar Sweep Visual</h3>
+                            <div class="sensor-feed-canvas-box">
+                                <canvas id="canvas-sensor-radar" width="300" height="225"></canvas>
+                            </div>
+                            <span class="feed-overlay-lbl">RADAR CONFIDENCE: <strong id="lbl-feed-radar">98%</strong></span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- VIEW 7: WEATHER & VISIBILITY SIMULATOR -->
+                <section id="view-weather" class="content-view">
+                    <div class="grid-layout cols-3">
+                        <div class="card col-span-2">
+                            <h3>Monsoon Atmospheric Modulators</h3>
+                            <div class="slider-group">
+                                <label>🌧️ Rain Intensity: <strong id="val-slider-rain">0%</strong></label>
+                                <input type="range" id="slider-rain" min="0" max="100" value="0" class="input-range">
+                            </div>
+                            <div class="slider-group">
+                                <label>🌫️ Fog Density: <strong id="val-slider-fog">0%</strong></label>
+                                <input type="range" id="slider-fog" min="0" max="100" value="0" class="input-range">
+                            </div>
+                            <div class="slider-group">
+                                <label>💨 Wind Speed: <strong id="val-slider-wind">5 km/h</strong></label>
+                                <input type="range" id="slider-wind" min="0" max="120" value="5" class="input-range">
+                            </div>
+                            <div class="slider-group">
+                                <label>🌪️ Dust Levels (Wind-blown): <strong id="val-slider-dust">10%</strong></label>
+                                <input type="range" id="slider-dust" min="0" max="100" value="10" class="input-range">
+                            </div>
+                            <div class="slider-group">
+                                <label>💧 Humidity: <strong id="val-slider-humidity">45%</strong></label>
+                                <input type="range" id="slider-humidity" min="0" max="100" value="45" class="input-range">
+                            </div>
+                            <div class="slider-group">
+                                <label>☁️ Cloud Cover: <strong id="val-slider-clouds">5%</strong></label>
+                                <input type="range" id="slider-clouds" min="0" max="100" value="5" class="input-range">
+                            </div>
+                        </div>
+
+                        <div class="card flex-column border-glow-green" id="weather-adaptation-twin">
+                            <h3>System-Wide Adaptation Impact</h3>
+                            <div class="stat-box margin-bottom-sm">
+                                <span class="lbl">Calculated Visibility</span>
+                                <strong class="text-lg text-glow-green" id="lbl-w-calc-vis">120m</strong>
+                                <span class="badge badge-success" id="lbl-w-calc-cat">CLEAR</span>
+                            </div>
+                            <div class="stat-box">
+                                <span class="lbl">Sensor Weight Configuration</span>
+                                <div class="sensor-weights-flex">
+                                    <div class="w-item"><span>RGB:</span><strong id="lbl-w-weight-rgb">33%</strong></div>
+                                    <div class="w-item"><span>Thermal:</span><strong id="lbl-w-weight-thermal">33%</strong></div>
+                                    <div class="w-item"><span>Radar:</span><strong id="lbl-w-weight-radar">34%</strong></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- VIEW 8: ROAD HEALTH MONITOR -->
+                <section id="view-road-health" class="content-view">
+                    <div class="grid-layout cols-3">
+                        <div class="card col-span-2">
+                            <h3>Haul Road Physical Status Logs</h3>
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Name</th>
+                                            <th>Water Level</th>
+                                            <th>Potholes</th>
+                                            <th>Slope</th>
+                                            <th>Friction Score</th>
+                                            <th>Recommended Speed</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="table-road-health">
+                                        <!-- Filled by JS -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="card flex-column" id="panel-road-scan">
+                            <h3>Laser Road Scanning Lab</h3>
+                            <p class="desc-text text-muted">Scan degraded haul road sections to assess physical structural cracks and trigger surface repair schedules.</p>
+                            
+                            <div class="slider-group">
+                                <label>Select Target Road:</label>
+                                <select id="select-scan-road" class="dropdown-select w-full">
+                                    <!-- Filled by JS -->
+                                </select>
+                            </div>
+
+                            <button id="btn-trigger-road-scan" class="action-btn w-full margin-top-md">Trigger Active Road Scan</button>
+                            
+                            <div class="road-scan-progress-box margin-top-md hidden" id="box-scan-progress">
+                                <span class="lbl">Scanning Road <strong id="lbl-scanning-road-id">H-07</strong>...</span>
+                                <div class="meter-bar-bg"><div class="meter-bar-fill animate-progress" id="bar-scan-progress" style="width: 0%"></div></div>
+                                <span class="lbl-percent align-right" id="lbl-scan-progress-val">0%</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- VIEW 9: COLLISION PREDICTION -->
+                <section id="view-collision" class="content-view">
+                    <div class="grid-layout cols-3">
+                        <div class="card col-span-2">
+                            <h3>Conflict Analysis & Time-To-Collision (TTC) Chart</h3>
+                            <div class="chart-container">
+                                <canvas id="chart-collision-ttc"></canvas>
+                            </div>
+                        </div>
+
+                        <div class="card flex-column">
+                            <h3>Active Proximity Threats</h3>
+                            <div class="object-list" id="collision-threats-list">
+                                <!-- Filled by JS -->
+                            </div>
+                            
+                            <h3 class="margin-top-md">Explainable Risk Mitigation System</h3>
+                            <div class="risk-explanation-panel card hidden" id="box-risk-explanation">
+                                <span class="badge badge-danger" id="lbl-exp-level">CRITICAL</span>
+                                <h4 id="lbl-exp-title">Collision Alert V-01 ↔ V-02</h4>
+                                <p class="desc-text" id="lbl-exp-text">Explainable details go here...</p>
+                                <div class="recommendation-badge margin-top-sm">
+                                    <span>ACTION OVERRIDE:</span>
+                                    <strong id="lbl-exp-action">V-01 Brake Immediately</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- VIEW 10: SCENARIO SIMULATOR -->
+                <section id="view-scenarios" class="content-view">
+                    <div class="grid-layout cols-3">
+                        <div class="card col-span-2">
+                            <h3>Select Predefined Simulation Scenarios</h3>
+                            <div class="scenarios-grid" id="scenarios-container">
+                                <!-- Loaded dynamically via JS -->
+                            </div>
+                        </div>
+
+                        <div class="card flex-column border-glow-green" id="scenario-timeline-panel">
+                            <h3>Scenario Event Timeline Logs</h3>
+                            <div class="scenario-state-card margin-bottom-sm">
+                                <span>Active Scenario:</span>
+                                <strong id="scen-active-name">None</strong>
+                                <span>Elapsed Time:</span>
+                                <strong id="scen-active-time">0.0s</strong>
+                            </div>
+                            <div class="timeline-logs" id="timeline-logs-list">
+                                <div class="empty-state">No scenario active. Choose a scenario on the left.</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- VIEW 11: ANALYTICS -->
+                <section id="view-analytics" class="content-view">
+                    <div class="grid-layout cols-2">
+                        <div class="card">
+                            <h3>Haul Speed Comparison Profile</h3>
+                            <div class="chart-container">
+                                <canvas id="chart-analytics-speed"></canvas>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <h3>Atmospheric Degradation over Time</h3>
+                            <div class="chart-container">
+                                <canvas id="chart-analytics-visibility"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid-layout cols-3 margin-top-md">
+                        <div class="card col-span-2">
+                            <h3>MineGuard Safety & Fleet Continuity Benchmarks</h3>
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Key Performance Metric</th>
+                                            <th>Before MineGuard (Mock)</th>
+                                            <th>With MineGuard AI (Simulated)</th>
+                                            <th>Continuity / Improvement Ratio</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Fleet Evacuation Rate (Low Vis)</td>
+                                            <td>0% (Complete Shut-down)</td>
+                                            <td>78% (Continuity under limits)</td>
+                                            <td class="text-glow-green">+78% Continuity</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Collisions or Near-Miss Incidents</td>
+                                            <td>High Risk</td>
+                                            <td>0 Incidents</td>
+                                            <td class="text-glow-green">100% Avoidance</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Average Haul Cycle (Extreme Monsoon)</td>
+                                            <td>999m (Infinite shutdown delay)</td>
+                                            <td>38.2 mins</td>
+                                            <td class="text-glow-green">Operational Continuity</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Operator Situational Awareness</td>
+                                            <td>Deplorable (3-5m visibility)</td>
+                                            <td>High (Radar/Thermal overlay)</td>
+                                            <td class="text-glow-green">Robust Awareness</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <p class="desc-text text-muted margin-top-sm">* Note: All numeric metrics represent simulator benchmark evaluations under weather profile curves and do not represent active NMDC statistics.</p>
+                        </div>
+                        
+                        <div class="card flex-column">
+                            <h3>Risk Distribution Profile</h3>
+                            <div class="chart-container-sm">
+                                <canvas id="chart-analytics-risk"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- VIEW 12: HARDWARE & ENVIRONMENTAL ROBUSTNESS -->
+                <section id="view-hardware" class="content-view">
+                    <div class="grid-layout cols-3">
+                        <div class="card col-span-2">
+                            <h3>Sensor Enclosure Conceptual Architecture</h3>
+                            <p class="desc-text">In mechanized open-cast iron ore environments, sensor suites are exposed to high vibrations, mechanical impacts, mud splash, and corrosive humidity. MineGuard AI uses a retrofit weather-resilient prototype housing.</p>
+                            
+                            <div class="hardware-mockup-graphic">
+                                <div class="enclosure-box">
+                                    <div class="enclosure-header">RETROFIT VEHICLE SENSOR MODULE (CONCEPT)</div>
+                                    <div class="sensors-mounted">
+                                        <div class="mount-card">
+                                            <span>📷 RGB Camera</span>
+                                            <p>Sealed IP67 Lens | Heated Defog Glass | Jet nozzle water wash port</p>
+                                        </div>
+                                        <div class="mount-card">
+                                            <span>🌡️ Thermal Sensor</span>
+                                            <p>Germanium optical window | Protective shroud | Fan cooling duct</p>
+                                        </div>
+                                        <div class="mount-card">
+                                            <span>📡 FMCW Radar</span>
+                                            <p>Radome splash shielding | Shock absorbing elastomer mounts</p>
+                                        </div>
+                                    </div>
+                                    <div class="wiring-spec">
+                                        <span>Heavy Duty Spec: M12 waterproof connectors, braided shielding, steel anti-vibration mount plates.</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card flex-column" id="panel-hardware-state">
+                            <h3>Physical Sensor Diagnostics</h3>
+                            <div class="diag-status-grid">
+                                <div class="diag-item">
+                                    <span>Housing Internal Temp:</span>
+                                    <strong>32.4°C</strong>
+                                </div>
+                                <div class="diag-item">
+                                    <span>Water Spray Jet:</span>
+                                    <strong>STANDBY</strong>
+                                </div>
+                                <div class="diag-item">
+                                    <span>Vibration Levels:</span>
+                                    <strong class="text-glow-green">NORMAL (1.4g)</strong>
+                                </div>
+                                <div class="diag-item">
+                                    <span>Lens Defogger status:</span>
+                                    <strong>HEATER OFF</strong>
+                                </div>
+                            </div>
+                            
+                            <h3 class="margin-top-md">Diagnostic Controls</h3>
+                            <button class="action-btn w-full margin-bottom-sm" id="btn-trigger-jet-spray">Trigger Water Jet Spray Wash</button>
+                            <button class="action-btn w-full" id="btn-trigger-lens-heater">Toggle Optical Window Heater</button>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- VIEW 13: ABOUT / ARCHITECTURE -->
+                <section id="view-about" class="content-view">
+                    <div class="card">
+                        <h3>MineGuard AI Unique Selling Propositions (USPs)</h3>
+                        <div class="usps-grid">
+                            <div class="usp-card">
+                                <h4>1. Low-Cost Retrofit Enclosure</h4>
+                                <p>Avoids the massive capital expense of autonomous conversions by retrofitting existing HEMM fleets with operator assistance displays.</p>
+                            </div>
+                            <div class="usp-card">
+                                <h4>2. Multi-Sensor Fused Perception</h4>
+                                <p>Combines RGB Camera (for class identification), Thermal (for low light and fog heat spots), and Radar (for distance and relative speed range).</p>
+                            </div>
+                            <div class="usp-card">
+                                <h4>3. Adaptive Environment Compensation</h4>
+                                <p>Dynamically switches confidence weights as visibility changes, ensuring the system remains trustworthy and never blindly depends on a single sensor.</p>
+                            </div>
+                            <div class="usp-card">
+                                <h4>4. Predictive Collision Algorithms</h4>
+                                <p>Computes closing trajectories and Time-To-Collision (TTC) to generate alerts BEFORE impacts, giving drivers reaction time.</p>
+                            </div>
+                            <div class="usp-card">
+                                <h4>5. Self-Aware Diagnostics</h4>
+                                <p>Monitors hardware health reports. Occluded lenses or connection losses trigger fail-safe cautionary speed ceilings or controlled stops.</p>
+                            </div>
+                            <div class="usp-card">
+                                <h4>6. Centralized Control Room Control</h4>
+                                <p>Pushes alerts, telemetry, paths, and explainable safety states to a single web dashboard for remote supervisor dispatch monitoring.</p>
+                            </div>
+                            <div class="usp-card">
+                                <h4>7. Dynamic Road Health Assessment</h4>
+                                <p>Uses front scanners to map potholes and surface flooding water, reducing vehicle chassis damage and tyre slips.</p>
+                            </div>
+                            <div class="usp-card">
+                                <h4>8. Continuity + Safety Balanced</h4>
+                                <p>Avoids total fleet halts. Slows high-risk units while routing others through safe bypasses, maintaining productivity.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card margin-top-md">
+                        <h3>MineGuard AI Core Flow Architecture</h3>
+                        <div class="arch-box">
+                            <pre class="flow-chart">
+📷 RGB Camera     🌡️ Thermal Camera     📡 Radar Sensor
+     │                   │                   │
+     └───────────────────┼───────────────────┘
+                         ▼
+                Multi-Sensor Fusion
+                         │
+                         ▼
+            Visibility & Environment Engine
+                         │
+        ┌────────────────┴────────────────┐
+        ▼                                 ▼
+ Object Detection                 Road Health Mapping
+(Vehicle, Person, Obstacle)      (Potholes, Wet Mud)
+        │                                 │
+        ▼                                 ▼
+Trajectory & TTC Calculation     Adaptive Recommended Speed
+        │                                 │
+        └────────────────┬────────────────┘
+                         ▼
+                Unified Risk Engine
+                         │
+                         ▼
+        Dynamic Safety States & Recommendations
+                         │
+                         ▼
+      Central Command alerts & digital twin telemetry
+                            </pre>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- Add Vehicle Modal -->
+    <div id="modal-add-vehicle" class="modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 10000; align-items: center; justify-content: center;">
+        <div class="modal-content card" style="width: 400px; background: #0c1017; border: 1px solid #1e2d3d; border-radius: 4px; padding: 20px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                <h3 style="margin: 0; color: #3b82f6; font-family: 'Outfit', sans-serif;">🚛 ADD NEW VEHICLE</h3>
+                <span class="close-modal" id="close-add-vehicle-modal" style="cursor: pointer; font-size: 20px; color: #9ca3af;">&times;</span>
+            </div>
+            <form id="form-add-vehicle">
+                <div class="form-group" style="margin-bottom: 10px;">
+                    <label style="display: block; font-size: 11px; margin-bottom: 4px; color: #9ca3af; font-family: 'Outfit', sans-serif;">Vehicle ID</label>
+                    <input type="text" id="add-veh-id" placeholder="AMB-01" style="width: 100%; padding: 6px; background: #06090e; border: 1px solid #1e2d3d; border-radius: 3px; color: white;" required>
+                </div>
+                <div class="form-group" style="margin-bottom: 10px;">
+                    <label style="display: block; font-size: 11px; margin-bottom: 4px; color: #9ca3af; font-family: 'Outfit', sans-serif;">Vehicle Type</label>
+                    <select id="add-veh-type" style="width: 100%; padding: 6px; background: #06090e; border: 1px solid #1e2d3d; border-radius: 3px; color: white;">
+                        <option value="Heavy Dumper">Heavy Dumper</option>
+                        <option value="Mining Truck">Mining Truck</option>
+                        <option value="Service Vehicle">Service Vehicle</option>
+                        <option value="Water Tanker">Water Tanker</option>
+                        <option value="Ambulance">Ambulance</option>
+                        <option value="Maintenance Vehicle">Maintenance Vehicle</option>
+                        <option value="Rescue Vehicle">Rescue Vehicle</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group" style="margin-bottom: 10px;">
+                    <label style="display: block; font-size: 11px; margin-bottom: 4px; color: #9ca3af; font-family: 'Outfit', sans-serif;">Vehicle Name</label>
+                    <input type="text" id="add-veh-name" placeholder="Emergency Ambulance" style="width: 100%; padding: 6px; background: #06090e; border: 1px solid #1e2d3d; border-radius: 3px; color: white;" required>
+                </div>
+                <div class="form-group" style="margin-bottom: 10px;">
+                    <label style="display: block; font-size: 11px; margin-bottom: 4px; color: #9ca3af; font-family: 'Outfit', sans-serif;">Starting Location</label>
+                    <select id="add-veh-start" style="width: 100%; padding: 6px; background: #06090e; border: 1px solid #1e2d3d; border-radius: 3px; color: white;">
+                        <!-- Filled dynamically -->
+                    </select>
+                </div>
+                <div class="form-group" style="margin-bottom: 10px;">
+                    <label style="display: block; font-size: 11px; margin-bottom: 4px; color: #9ca3af; font-family: 'Outfit', sans-serif;">Destination</label>
+                    <select id="add-veh-dest" style="width: 100%; padding: 6px; background: #06090e; border: 1px solid #1e2d3d; border-radius: 3px; color: white;">
+                        <!-- Filled dynamically -->
+                    </select>
+                </div>
+                <div class="form-group" style="margin-bottom: 10px;">
+                    <label style="display: block; font-size: 11px; margin-bottom: 4px; color: #9ca3af; font-family: 'Outfit', sans-serif;">Speed (km/h)</label>
+                    <input type="number" id="add-veh-speed" min="5" max="60" value="35" style="width: 100%; padding: 6px; background: #06090e; border: 1px solid #1e2d3d; border-radius: 3px; color: white;" required>
+                </div>
+                <div class="form-group" style="margin-bottom: 15px;">
+                    <label style="display: block; font-size: 11px; margin-bottom: 4px; color: #9ca3af; font-family: 'Outfit', sans-serif;">Priority Level</label>
+                    <select id="add-veh-priority" style="width: 100%; padding: 6px; background: #06090e; border: 1px solid #1e2d3d; border-radius: 3px; color: white;">
+                        <option value="NORMAL">NORMAL</option>
+                        <option value="HIGH">HIGH</option>
+                        <option value="EMERGENCY">EMERGENCY</option>
+                    </select>
+                </div>
+                <div class="modal-actions" style="display: flex; justify-content: flex-end; gap: 10px;">
+                    <button type="button" class="action-btn" id="btn-cancel-add-vehicle" style="padding: 6px 12px; background: #1e2d3d; border: none; border-radius: 3px; color: white; cursor: pointer;">CANCEL</button>
+                    <button type="submit" class="action-btn submit" style="padding: 6px 12px; background: #3b82f6; border: none; border-radius: 3px; color: white; cursor: pointer;">ADD VEHICLE</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Report Incident Modal -->
+    <div id="modal-report-incident" class="modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 10000; align-items: center; justify-content: center;">
+        <div class="modal-content card" style="width: 400px; background: #0c1017; border: 1px solid #1e2d3d; border-radius: 4px; padding: 20px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                <h3 style="margin: 0; color: #ef4444; font-family: 'Outfit', sans-serif;">🚧 REPORT INCIDENT / CALAMITY</h3>
+                <span class="close-modal" id="close-report-incident-modal" style="cursor: pointer; font-size: 20px; color: #9ca3af;">&times;</span>
+            </div>
+            <form id="form-report-incident">
+                <div class="form-group" style="margin-bottom: 10px;">
+                    <label style="display: block; font-size: 11px; margin-bottom: 4px; color: #9ca3af; font-family: 'Outfit', sans-serif;">Incident Type</label>
+                    <select id="rep-inc-type" style="width: 100%; padding: 6px; background: #06090e; border: 1px solid #1e2d3d; border-radius: 3px; color: white;">
+                        <option value="Landslide">Landslide</option>
+                        <option value="Rockfall">Rockfall</option>
+                        <option value="Flooding">Flooding</option>
+                        <option value="Heavy Water Accumulation">Heavy Water Accumulation</option>
+                        <option value="Road Collapse">Road Collapse</option>
+                        <option value="Debris">Debris</option>
+                        <option value="Vehicle Breakdown">Vehicle Breakdown</option>
+                        <option value="Accident">Accident</option>
+                        <option value="Fire">Fire</option>
+                        <option value="Unknown Obstruction">Unknown Obstruction</option>
+                    </select>
+                </div>
+                <div class="form-group" style="margin-bottom: 10px;">
+                    <label style="display: block; font-size: 11px; margin-bottom: 4px; color: #9ca3af; font-family: 'Outfit', sans-serif;">Location (Road Segment)</label>
+                    <select id="rep-inc-road" style="width: 100%; padding: 6px; background: #06090e; border: 1px solid #1e2d3d; border-radius: 3px; color: white;">
+                        <!-- Filled dynamically -->
+                    </select>
+                </div>
+                <div class="form-group" style="margin-bottom: 15px;">
+                    <label style="display: block; font-size: 11px; margin-bottom: 4px; color: #9ca3af; font-family: 'Outfit', sans-serif;">Severity</label>
+                    <select id="rep-inc-severity" style="width: 100%; padding: 6px; background: #06090e; border: 1px solid #1e2d3d; border-radius: 3px; color: white;">
+                        <option value="NORMAL">NORMAL</option>
+                        <option value="HIGH">HIGH</option>
+                        <option value="CRITICAL">CRITICAL</option>
+                    </select>
+                </div>
+                <div class="modal-actions" style="display: flex; justify-content: flex-end; gap: 10px;">
+                    <button type="button" class="action-btn" id="btn-cancel-report-incident" style="padding: 6px 12px; background: #1e2d3d; border: none; border-radius: 3px; color: white; cursor: pointer;">CANCEL</button>
+                    <button type="submit" class="action-btn submit danger" style="padding: 6px 12px; background: #ef4444; border: none; border-radius: 3px; color: white; cursor: pointer;">REPORT</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Main scripts -->
+    <script src="/static/js/map.js"></script>
+    <script src="/static/js/sensors.js"></script>
+    <script src="/static/js/app.js"></script>
+</body>
+</html>
