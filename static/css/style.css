@@ -1323,3 +1323,395 @@ tr:hover td {
 .fleet-table tbody tr:hover {
     background: rgba(31, 41, 55, 0.4);
 }
+
+/* =========================================================
+   MOBILE RESPONSIVE DESIGN
+   ========================================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+img,
+canvas,
+video {
+    max-width: 100%;
+}
+
+
+/* ---------- TABLET ---------- */
+
+@media (max-width: 900px) {
+
+    .app-container {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+    }
+
+    .sidebar-nav ul {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 5px;
+    }
+
+    .nav-item {
+        flex: 1 1 auto;
+    }
+
+    .sidebar-panels {
+        display: none;
+    }
+
+    .workspace {
+        width: 100%;
+        min-width: 0;
+    }
+
+    .grid-layout.cols-4,
+    .grid-layout.cols-3,
+    .grid-layout.cols-2 {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .col-span-2 {
+        grid-column: span 2;
+    }
+
+}
+
+
+/* ---------- MOBILE ---------- */
+
+@media (max-width: 600px) {
+
+    body {
+        font-size: 13px;
+    }
+
+    .app-container {
+        display: block;
+        width: 100%;
+        overflow-x: hidden;
+    }
+
+    /* SIDEBAR */
+
+    .sidebar {
+        width: 100%;
+        height: auto;
+        min-height: 0;
+        position: relative;
+    }
+
+    .sidebar-brand {
+        padding: 12px;
+    }
+
+    .brand-text h1 {
+        font-size: 18px;
+    }
+
+    .brand-text span {
+        font-size: 9px;
+    }
+
+    /* NAVIGATION */
+
+    .sidebar-nav {
+        width: 100%;
+        overflow-x: auto;
+    }
+
+    .sidebar-nav ul {
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        width: 100%;
+        padding: 5px;
+        gap: 5px;
+    }
+
+    .nav-item {
+        flex: 0 0 auto;
+        white-space: nowrap;
+        padding: 8px 10px;
+    }
+
+    .nav-item span {
+        font-size: 11px;
+    }
+
+    /* HIDE LARGE SIDEBAR PANELS */
+
+    .sidebar-panels {
+        display: none;
+    }
+
+    .sidebar-footer {
+        display: none;
+    }
+
+
+    /* MAIN WORKSPACE */
+
+    .workspace {
+        width: 100%;
+        min-width: 0;
+        padding: 0;
+    }
+
+
+    /* TOP HEADER */
+
+    .top-bar {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+        padding: 12px;
+    }
+
+    .header-left h2 {
+        font-size: 18px;
+    }
+
+    .subtitle {
+        font-size: 10px;
+    }
+
+    .simulation-controls {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+    }
+
+    .simulation-controls button {
+        flex: 1;
+    }
+
+
+    /* CONTENT */
+
+    .view-content-wrapper {
+        width: 100%;
+        padding: 10px;
+    }
+
+    .content-view {
+        width: 100%;
+    }
+
+
+    /* ALL GRIDS BECOME ONE COLUMN */
+
+    .grid-layout.cols-4,
+    .grid-layout.cols-3,
+    .grid-layout.cols-2 {
+        grid-template-columns: 1fr;
+        width: 100%;
+    }
+
+    .col-span-2,
+    .col-span-3 {
+        grid-column: span 1;
+    }
+
+
+    /* CARDS */
+
+    .card {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        overflow: hidden;
+    }
+
+
+    /* HEADINGS */
+
+    h1 {
+        font-size: 20px;
+    }
+
+    h2 {
+        font-size: 18px;
+    }
+
+    h3 {
+        font-size: 15px;
+    }
+
+    h4 {
+        font-size: 13px;
+    }
+
+
+    /* TABLES */
+
+    .table-container {
+        width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    table {
+        min-width: 600px;
+    }
+
+
+    /* CANVAS / MAP */
+
+    .mine-map-wrapper {
+        width: 100%;
+        max-width: 100%;
+        overflow: hidden;
+    }
+
+    .mine-map-wrapper canvas {
+        display: block;
+        width: 100% !important;
+        height: auto !important;
+        max-width: 100%;
+    }
+
+
+    /* SENSOR FEEDS */
+
+    .sensor-feeds-grid {
+        grid-template-columns: 1fr !important;
+    }
+
+    .sensor-feed-canvas-box {
+        width: 100%;
+        max-width: 100%;
+        overflow: hidden;
+    }
+
+    .sensor-feed-canvas-box canvas {
+        width: 100% !important;
+        height: auto !important;
+    }
+
+
+    /* TWIN STATS */
+
+    .twin-grid-stats {
+        grid-template-columns: 1fr 1fr;
+    }
+
+
+    /* BUTTONS */
+
+    button,
+    .action-btn,
+    .control-btn {
+        max-width: 100%;
+    }
+
+
+    /* DROPDOWNS / INPUTS */
+
+    input,
+    select,
+    textarea {
+        max-width: 100%;
+    }
+
+
+    /* MODALS */
+
+    .modal-content {
+        width: calc(100% - 30px) !important;
+        max-width: 400px;
+        max-height: 90vh;
+        overflow-y: auto;
+        margin: 15px;
+    }
+
+
+    /* FLOATING MAP CARD */
+
+    .floating-vehicle-details {
+        width: calc(100% - 20px) !important;
+        max-width: none;
+        left: 10px !important;
+        right: 10px !important;
+        top: 10px !important;
+    }
+
+
+    /* ARCHITECTURE DIAGRAM */
+
+    .arch-box {
+        width: 100%;
+        overflow-x: auto;
+    }
+
+    .flow-chart {
+        min-width: 600px;
+    }
+
+
+    /* HARDWARE MOCKUP */
+
+    .hardware-mockup-graphic {
+        width: 100%;
+        overflow-x: auto;
+    }
+
+
+    /* SCENARIOS */
+
+    .scenarios-grid {
+        grid-template-columns: 1fr !important;
+    }
+
+}
+
+
+/* ---------- VERY SMALL PHONES ---------- */
+
+@media (max-width: 400px) {
+
+    .view-content-wrapper {
+        padding: 7px;
+    }
+
+    .top-bar {
+        padding: 8px;
+    }
+
+    .header-left h2 {
+        font-size: 16px;
+    }
+
+    .metric-value {
+        font-size: 22px;
+    }
+
+    .nav-item {
+        padding: 7px 8px;
+    }
+
+    .nav-item span {
+        font-size: 10px;
+    }
+
+    .twin-grid-stats {
+        grid-template-columns: 1fr;
+    }
+
+}
